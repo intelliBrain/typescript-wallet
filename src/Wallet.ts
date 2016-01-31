@@ -1,19 +1,25 @@
 
 import { Address } from './Address';
+import { OrderedMap } from 'immutable';
 
 export class Wallet {
-  _addresses: Address[];
+  _addresses: OrderedMap<any, any>;
 
   constructor(addresses: string[]) {
-    this._addresses = addresses.map(Address.factory);
+    this._addresses = addresses.map(Address.factory)
+      .reduce((acc, a) => acc.set(a.publicKey, a), OrderedMap());
   }
 
   get addresses(): Address[] {
-    return this._addresses;
+    return this._addresses.toArray();
   }
 
   get keys(): string[] {
-    return this._addresses.map(k => k.publicKey);
+    return this._addresses.flip().toList().toJS();
+  }
+
+  address(publicKey: string): string {
+    return this._addresses.get(publicKey);
   }
 
   inspect(): string {

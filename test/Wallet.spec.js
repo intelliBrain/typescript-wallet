@@ -14,10 +14,18 @@ var privs = [
 ];
 
 describe('Wallet', function () {
+  var wallet;
 
-  it('should initialize', function () {
-    var wallet = new Wallet(privs);
+  beforeEach(function () {
+    wallet = new Wallet(privs);
+  });
+
+  it('should list the public keys', function () {
     expect(wallet.keys).to.deep.equal(keys);
+  });
+
+  it('should get a single address', function () {
+    expect(wallet.address(keys[0]).privateKey).to.equal(privs[0]);
   });
 
 });

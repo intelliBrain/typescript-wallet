@@ -3,3 +3,4 @@ compiled/
 build/
 
 npm-debug.log
+dev.js

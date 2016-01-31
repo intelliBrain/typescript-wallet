@@ -28,13 +28,13 @@
     "placeOpenBraceOnNewLineForControlBlocks": false
   },
   "filesGlob": [
-    "**/*.ts",
+    "src/**/*.ts",
     "!node_modules/**"
   ],
   "compileOnSave": true,
   "buildOnSave": false,
   "files": [
-    "src/index.ts"
+    "src/**/*.ts"
   ],
   "atom": {
     "rewriteTsconfig": false

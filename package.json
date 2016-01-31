@@ -4,10 +4,14 @@
   "description": "Bitcoin wallet in typescript",
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/mocha/bin/mocha test/"
   },
   "author": "Justin Tormey <justin@blockchain.com>",
   "dependencies": {
     "bitcoinjs-lib": "^2.1.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }

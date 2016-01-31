@@ -15,7 +15,7 @@ export class Wallet {
   }
 
   get keys(): string[] {
-    return this._addresses.flip().toList().toJS();
+    return this._addresses.flip().toArray();
   }
 
   address(publicKey: string): string {

@@ -16,8 +16,12 @@ export class Address {
     return this._keyPair.toWIF();
   }
 
+  inspect(): string {
+    return this.toString();
+  }
+
   toString(): string {
-    return '[Object Address]';
+    return `Address { ${this.publicKey} }`;
   }
 
   static factory(key: string): Address {

@@ -1,4 +1,6 @@
 
+/// <reference path='../node_modules/bitcoinjs-lib/type-definitions/bitcoinjs.d.ts'/>
+
 import bitcoinjs = require('bitcoinjs-lib');
 
 export class Address {
@@ -59,7 +61,7 @@ export class Address {
     return `Address { ${this.publicKey} }`;
   }
 
-  static isPublicKey(key): boolean {
+  static isPublicKey(key: string): boolean {
     try       { return bitcoinjs.address.fromBase58Check(key).version === 0; }
     catch (e) { return false; }
   }

@@ -34,7 +34,8 @@
   "compileOnSave": true,
   "buildOnSave": false,
   "files": [
-    "src/index.ts"
+    "src/index.ts",
+    "typings/**/*.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": false

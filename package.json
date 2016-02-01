@@ -8,7 +8,7 @@
   },
   "author": "Justin Tormey <justin@blockchain.com>",
   "dependencies": {
-    "bitcoinjs-lib": "^2.1.4",
+    "bitcoinjs-lib": "git+https://github.com/jtormey/bitcoinjs-lib.git",
     "immutable": "^3.7.6"
   },
   "devDependencies": {

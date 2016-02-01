@@ -1,5 +1,6 @@
 
 import { Address } from './Address';
+import { BlockchainAddress } from './BlockchainAddress';
 import { OrderedMap } from 'immutable';
 import { cipherFunction } from './crypto';
 
@@ -7,7 +8,7 @@ export class Wallet {
   _addresses: OrderedMap<any, any>;
 
   constructor(addresses: string[]) {
-    this._addresses = addresses.map(Address.factory)
+    this._addresses = addresses.map(BlockchainAddress.factory)
       .reduce((acc, a) => acc.set(a.publicKey, a), OrderedMap());
   }
 

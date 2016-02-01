@@ -70,4 +70,8 @@ export class BlockchainWallet extends Wallet {
     super.encrypt(password, this.sharedKey, this.pbkdf2Iterations);
   }
 
+  decrypt(password: string): void {
+    super.decrypt(password, this.sharedKey, this.pbkdf2Iterations);
+  }
+
 }

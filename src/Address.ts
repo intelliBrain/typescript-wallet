@@ -1,24 +1,54 @@
 
 import bitcoinjs = require('bitcoinjs-lib');
-import { encryptSecretWithSecondPassword } from './crypto';
 
 export class Address {
-  _keyPair: any;
+  _publicKey: string;
+  _privateKey: string;
+  _temporalPrivateKey: string;
 
-  constructor(key: string) {
-    this._keyPair = bitcoinjs.ECPair.fromWIF(key);
+  constructor(key?: string) {
+    if (Address.isPublicKey(key)) {
+      this._publicKey = key;
+    } else {
+      let keyPair = key ? bitcoinjs.ECPair.fromWIF(key) : bitcoinjs.ECPair.makeRandom();
+      this._publicKey = keyPair.getAddress();
+      this._privateKey = keyPair.toWIF();
+    }
   }
 
   get publicKey(): string {
-    return this._keyPair.getAddress();
+    return this._publicKey;
   }
 
   get privateKey(): string {
-    return this._keyPair.toWIF();
+    return this._privateKey;
   }
 
-  encrypt(cipher): void {
-    cipher(this.privateKey);
+  get watchOnly(): boolean {
+    return !this.privateKey;
+  }
+
+  encrypt(cipher): Address {
+    if (!this.watchOnly) {
+      this._temporalPrivateKey = cipher(this.privateKey);
+      if (!this._temporalPrivateKey) throw 'ERR_ENCRYPT';
+    }
+    return this;
+  }
+
+  decrypt(cipher): Address {
+    if (!this.watchOnly) {
+      this._temporalPrivateKey = cipher(this.privateKey);
+      if (!this._temporalPrivateKey) throw 'ERR_DECRYPT';
+    }
+    return this;
+  }
+
+  persist(): void {
+    if (this._temporalPrivateKey) {
+      this._privateKey = this._temporalPrivateKey;
+      delete this._temporalPrivateKey;
+    }
   }
 
   inspect(): string {
@@ -27,6 +57,11 @@ export class Address {
 
   toString(): string {
     return `Address { ${this.publicKey} }`;
+  }
+
+  static isPublicKey(key): boolean {
+    try       { return bitcoinjs.address.fromBase58Check(key).version === 0; }
+    catch (e) { return false; }
   }
 
   static factory(key: string): Address {

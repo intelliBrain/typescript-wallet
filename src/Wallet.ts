@@ -25,7 +25,12 @@ export class Wallet {
 
   encrypt(password: string, sharedKey: string, iterations: number): void {
     let cipher = cipherFunction(password, sharedKey, iterations, 'enc');
-    this._addresses.forEach(a => a.encrypt(cipher));
+    this._addresses.forEach(a => a.encrypt(cipher).persist());
+  }
+
+  decrypt(password: string, sharedKey: string, iterations: number): void {
+    let cipher = cipherFunction(password, sharedKey, iterations, 'dec');
+    this._addresses.forEach(a => a.decrypt(cipher).persist());
   }
 
   inspect(): string {

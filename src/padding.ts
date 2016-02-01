@@ -1,5 +1,4 @@
 
-import bitcoinjs = require('bitcoinjs-lib');
 import crypto = require('crypto');
 
 export var NoPadding = {

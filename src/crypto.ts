@@ -74,7 +74,7 @@ export function decryptAes(
   var dataHex = new Buffer(data, 'base64').toString('hex')
     , salt    = new Buffer(dataHex.slice(0, SALT_BYTES * 2), 'hex')
     , payload = dataHex.slice(SALT_BYTES * 2)
-    , key     = stretchPassword(password, salt, iterations, KEY_BIT_LEN);
+    , key     = stretchPassword(password, salt, iterations, KEY_BIT_LEN / 8);
 
   var decipher = crypto.createDecipheriv(options.mode || AES.CBC, key, salt);
   decipher.setAutoPadding(false);

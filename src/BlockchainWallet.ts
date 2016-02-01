@@ -66,4 +66,8 @@ export class BlockchainWallet extends Wallet {
     return this._logoutTime;
   }
 
+  encrypt(password: string): void {
+    super.encrypt(password, this.sharedKey, this.pbkdf2Iterations);
+  }
+
 }

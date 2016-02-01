@@ -2,6 +2,7 @@
 var expect = require('chai').expect;
 
 var Wallet = require('../compiled/Wallet').Wallet;
+var crypto = require('../compiled/crypto');
 
 var keys = [
   '1FEhNgioR6W8Ed1B72kEZDPt8Cu1WgHw8g',

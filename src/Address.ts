@@ -1,5 +1,6 @@
 
 import bitcoinjs = require('bitcoinjs-lib');
+import { encryptSecretWithSecondPassword } from './crypto';
 
 export class Address {
   _keyPair: any;
@@ -14,6 +15,10 @@ export class Address {
 
   get privateKey(): string {
     return this._keyPair.toWIF();
+  }
+
+  encrypt(cipher): void {
+    cipher(this.privateKey);
   }
 
   inspect(): string {

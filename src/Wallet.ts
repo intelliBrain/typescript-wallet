@@ -1,6 +1,7 @@
 
 import { Address } from './Address';
 import { OrderedMap } from 'immutable';
+import { cipherFunction } from './crypto';
 
 export class Wallet {
   _addresses: OrderedMap<any, any>;
@@ -20,6 +21,11 @@ export class Wallet {
 
   address(publicKey: string): string {
     return this._addresses.get(publicKey);
+  }
+
+  encrypt(password: string, sharedKey: string, iterations: number): void {
+    let cipher = cipherFunction(password, sharedKey, iterations, 'enc');
+    this._addresses.forEach(a => a.encrypt(cipher));
   }
 
   inspect(): string {

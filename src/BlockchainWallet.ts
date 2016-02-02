@@ -1,5 +1,5 @@
 
-import { Wallet } from './Wallet';
+import { HDWallet } from './HDWallet';
 
 interface IWalletJSON {
   guid: string;
@@ -18,7 +18,7 @@ interface IWalletJSON {
   paidTo: {};
 }
 
-export class BlockchainWallet extends Wallet {
+export class BlockchainWallet extends HDWallet {
   _guid: string;
   _sharedKey: string;
   _doubleEncryption: boolean;
@@ -30,7 +30,7 @@ export class BlockchainWallet extends Wallet {
   _txNotes: {};
 
   constructor(wallet: IWalletJSON) {
-    super(wallet.keys);
+    super([], wallet.keys);
     this._guid = wallet.guid;
     this._sharedKey = wallet.sharedKey;
     this._doubleEncryption = wallet.double_encryption;
